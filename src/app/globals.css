@@ -1,26 +1,295 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─────────────────────────────────────────────────────────
+   BRAND TOKENS — Tailwind v4 @theme (generates utilities)
+   ───────────────────────────────────────────────────────── */
+@theme {
+  /* Core palette */
+  --color-bg:           #F6F4EF;
+  --color-surface:      #FFFFFF;
+  --color-ink:          #1A2421;
+  --color-ink-soft:     #4A5550;
+  --color-muted:        #8A938F;
+  --color-primary:      #2F5D52;
+  --color-primary-hover:#3D7065;
+  --color-accent:       #D8B589;
+  --color-mint:         #C8E0D6;
+  --color-blush:        #F4DCD0;
+  --color-success:      #5B8C7E;
+  --color-line:         rgba(26,36,33,0.08);
+
+  /* Extended palette — for new sections */
+  --color-forest:          #1F3A2E;
+  --color-forest-soft:     #2A4A3B;
+  --color-champagne:       #C9A86A;
+  --color-champagne-soft:  #E8D9B8;
+  --color-cream:           #F4EDE3;
+  --color-bone:            #FAF7F2;
+
+  /* Typography — @fontsource-variable font names */
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-body:    "Inter Variable", system-ui, sans-serif;
+
+  /* Spacing / layout */
+  --spacing-gutter: 2rem;
+
+  /* Radius */
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-card: 24px;
+  --radius-lg:   28px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-soft: 0 10px 40px -10px rgba(26,36,33,0.12);
+  --shadow-lift: 0 30px 80px -20px rgba(26,36,33,0.18);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─────────────────────────────────────────────────────────
+   BASE RESET & GLOBAL STYLES
+   ───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────────────────
+   TYPOGRAPHY SCALE
+   ───────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: lowercase;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-feature-settings: "ss01", "ss02";
+}
+
+h1 {
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.display-hero {
+  font-size: clamp(48px, 7vw, 120px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.display-section {
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-primary);
+}
+
+/* ─────────────────────────────────────────────────────────
+   FOCUS RINGS — accessibility
+   ───────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SKIP TO CONTENT
+   ───────────────────────────────────────────────────────── */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ─────────────────────────────────────────────────────────
+   LAYOUT UTILITIES
+   ───────────────────────────────────────────────────────── */
+.container-site {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-site {
+    padding-inline: 2rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   CARD BASE
+   ───────────────────────────────────────────────────────── */
+.card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+/* ─────────────────────────────────────────────────────────
+   REDUCED MOTION — disable all animations
+   ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   SCROLLBAR STYLING
+   ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-mint);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ─────────────────────────────────────────────────────────
+   LENIS SMOOTH SCROLL COMPATIBILITY
+   ───────────────────────────────────────────────────────── */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* ─────────────────────────────────────────────────────────
+   MARQUEE ANIMATION — GPU-composited (transform only)
+   ───────────────────────────────────────────────────────── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 30s linear infinite;
+  will-change: transform;
+}
+.animate-marquee-right {
+  animation: marquee-right 30s linear infinite;
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CLIP PATH REVEAL — GPU-composited on modern browsers
+   ───────────────────────────────────────────────────────── */
+.clip-reveal {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.clip-reveal.revealed {
+  clip-path: inset(0% 0 0 0);
+}
+
+/* ─────────────────────────────────────────────────────────
+   THREE.JS CANVAS WRAPPER
+   ───────────────────────────────────────────────────────── */
+.r3f-canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ─────────────────────────────────────────────────────────
+   PERFORMANCE — GPU layer hints for key animated elements
+   ───────────────────────────────────────────────────────── */
+
+/* Fixed elements get their own compositor layer automatically;
+   hint the browser ahead of time for the nav island */
+header[class*="fixed"] {
+  transform: translateZ(0);
+}
+
+/* Video elements don't need extra layers — browser handles them */
+video {
+  transform: translateZ(0);
+}
+
+/* Touch scrolling momentum on iOS */
+html {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent invisible overflow from creating extra paint areas */
+section {
+  isolation: isolate;
+}
+
+/* Reduce backdrop-filter GPU cost on mobile — only apply on capable devices */
+@media (max-width: 768px) {
+  /* Disable backdrop-blur on low-end mobile: fallback to opaque background */
+  [style*="backdrop-filter: blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Simplify heavy box-shadows on mobile */
+  .card {
+    box-shadow: 0 4px 16px rgba(26, 36, 33, 0.10);
+  }
+}
+
+/* Image rendering — crisp on retina, no janky scaling */
+img {
+  image-rendering: auto;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SMOOTH FONT RENDERING — prevent subpixel jank
+   ───────────────────────────────────────────────────────── */
+body {
+  text-rendering: optimizeLegibility;
 }
