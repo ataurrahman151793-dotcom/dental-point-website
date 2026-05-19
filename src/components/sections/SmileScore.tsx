@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, RotateCcw, CheckCircle } from "lucide-react";
 import Eyebrow from "@/components/ui/Eyebrow";
+import { GlowCard } from "@/components/ui/GlowCard";
 import { CLINIC } from "@/lib/constants";
 
 const QUESTIONS = [
@@ -169,13 +170,11 @@ export default function SmileScore() {
         </div>
 
         {/* Card */}
-        <div
-          className="w-full max-w-xl rounded-3xl overflow-hidden"
-          style={{
-            background:   "rgba(255,255,255,0.05)",
-            border:       "1.5px solid rgba(255,255,255,0.1)",
-            backdropFilter: "blur(12px)",
-          }}
+        <GlowCard
+          glowColor="teal"
+          bg="rgba(255,255,255,0.05)"
+          border="rgba(255,255,255,0.1)"
+          className="w-full max-w-xl overflow-hidden"
         >
           {/* Progress bar */}
           <div className="h-1 w-full" style={{ background: "rgba(255,255,255,0.08)" }}>
@@ -325,7 +324,7 @@ export default function SmileScore() {
 
             </AnimatePresence>
           </div>
-        </div>
+        </GlowCard>
       </div>
     </section>
   );

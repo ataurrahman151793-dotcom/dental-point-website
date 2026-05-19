@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import Eyebrow from "@/components/ui/Eyebrow";
+import { GlowCard } from "@/components/ui/GlowCard";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const PLANS = [
@@ -83,169 +84,130 @@ function PlanCard({ plan, index }: PlanCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.09, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative flex flex-col rounded-2xl p-6 md:p-7 overflow-hidden${isPopular ? " pricing-popular-glow" : ""}`}
-      style={
-        isPopular
-          ? {
-              background:
-                "linear-gradient(145deg, rgba(200,224,214,0.18) 0%, rgba(47,93,82,0.35) 100%)",
-              border: "1.5px solid rgba(200,224,214,0.35)",
-              backdropFilter: "blur(12px)",
-            }
-          : {
-              background: "rgba(255,255,255,0.04)",
-              border: "1.5px solid rgba(255,255,255,0.08)",
-              boxShadow:
-                "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)",
-              backdropFilter: "blur(8px)",
-            }
-      }
+      className="h-full"
     >
-      {/* Popular glow behind featured card */}
-      {isPopular && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,224,214,0.12) 0%, transparent 70%)",
-          }}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Popular badge */}
-      {isPopular && (
-        <span
-          className="absolute top-5 right-5 text-[9px] font-body font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
-          style={{
-            background: "var(--color-accent)",
-            color: "var(--color-ink)",
-          }}
-        >
-          most popular
-        </span>
-      )}
-
-      {/* Category */}
-      <p
-        className="font-body text-[10px] uppercase tracking-widest mb-4"
-        style={{ color: "rgba(200,224,214,0.5)" }}
+      <GlowCard
+        glowColor="teal"
+        bg={isPopular ? "rgba(47,93,82,0.28)" : "rgba(255,255,255,0.04)"}
+        border={isPopular ? "rgba(200,224,214,0.35)" : "rgba(255,255,255,0.08)"}
+        className={`flex flex-col p-6 md:p-7 h-full overflow-hidden${isPopular ? " pricing-popular-glow" : ""}`}
       >
-        {plan.category}
-      </p>
+        {/* Popular radial glow overlay */}
+        {isPopular && (
+          <div
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 90% 55% at 50% 0%, rgba(200,224,214,0.14) 0%, transparent 70%)",
+            }}
+            aria-hidden="true"
+          />
+        )}
 
-      {/* Service name */}
-      <h3
-        className="font-display font-semibold lowercase leading-tight mb-2"
-        style={{
-          fontSize: "clamp(1.1rem, 1.7vw, 1.3rem)",
-          color: isPopular ? "rgba(246,244,239,0.98)" : "rgba(246,244,239,0.85)",
-        }}
-      >
-        {plan.name}
-      </h3>
+        {/* All content above the overlay */}
+        <div className="relative z-10 flex flex-col h-full">
 
-      {/* Price */}
-      <div className="flex items-end gap-1.5 mb-3">
-        <span
-          className="font-body text-xs font-medium"
-          style={{ color: "rgba(200,224,214,0.45)", lineHeight: 2 }}
-        >
-          from
-        </span>
-        <span
-          className="font-display font-bold leading-none"
-          style={{
-            fontSize: "clamp(1.55rem, 2.4vw, 1.9rem)",
-            color: isPopular ? "rgba(246,244,239,0.98)" : "rgba(246,244,239,0.88)",
-          }}
-        >
-          {plan.from}
-        </span>
-        <span
-          className="font-body text-xs mb-0.5"
-          style={{ color: "rgba(200,224,214,0.4)" }}
-        >
-          {plan.unit}
-        </span>
-      </div>
-
-      {/* Description */}
-      <p
-        className="font-body text-sm leading-relaxed mb-5"
-        style={{ color: "rgba(200,224,214,0.55)" }}
-      >
-        {plan.description}
-      </p>
-
-      {/* Divider */}
-      <div
-        className="h-px mb-5"
-        style={{
-          background: isPopular
-            ? "rgba(200,224,214,0.18)"
-            : "rgba(255,255,255,0.06)",
-        }}
-      />
-
-      {/* Features */}
-      <ul className="flex flex-col gap-2.5 mb-7 flex-1">
-        {plan.features.map((f) => (
-          <li key={f} className="flex items-start gap-2.5">
-            <Check
-              size={13}
-              className="mt-0.5 flex-shrink-0"
-              style={{
-                color: isPopular
-                  ? "rgba(200,224,214,0.9)"
-                  : "rgba(200,224,214,0.55)",
-              }}
-            />
+          {/* Popular badge */}
+          {isPopular && (
             <span
-              className="font-body text-sm"
-              style={{ color: "rgba(246,244,239,0.6)" }}
+              className="absolute top-0 right-0 text-[9px] font-body font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
+              style={{ background: "var(--color-accent)", color: "var(--color-ink)" }}
             >
-              {f}
+              most popular
             </span>
-          </li>
-        ))}
-      </ul>
+          )}
 
-      {/* CTA */}
-      <a
-        href="#contact"
-        className="flex items-center justify-center gap-2 rounded-xl py-3 font-body font-semibold text-sm transition-all duration-200 group"
-        style={
-          isPopular
-            ? {
-                background: "var(--color-accent)",
-                color: "var(--color-ink)",
+          {/* Category */}
+          <p className="font-body text-[10px] uppercase tracking-widest mb-4"
+            style={{ color: "rgba(200,224,214,0.5)" }}>
+            {plan.category}
+          </p>
+
+          {/* Service name */}
+          <h3
+            className="font-display font-semibold lowercase leading-tight mb-2"
+            style={{
+              fontSize: "clamp(1.1rem, 1.7vw, 1.3rem)",
+              color: isPopular ? "rgba(246,244,239,0.98)" : "rgba(246,244,239,0.85)",
+            }}
+          >
+            {plan.name}
+          </h3>
+
+          {/* Price */}
+          <div className="flex items-end gap-1.5 mb-3">
+            <span className="font-body text-xs font-medium"
+              style={{ color: "rgba(200,224,214,0.45)", lineHeight: 2 }}>
+              from
+            </span>
+            <span
+              className="font-display font-bold leading-none"
+              style={{
+                fontSize: "clamp(1.55rem, 2.4vw, 1.9rem)",
+                color: isPopular ? "rgba(246,244,239,0.98)" : "rgba(246,244,239,0.88)",
+              }}
+            >
+              {plan.from}
+            </span>
+            <span className="font-body text-xs mb-0.5"
+              style={{ color: "rgba(200,224,214,0.4)" }}>
+              {plan.unit}
+            </span>
+          </div>
+
+          {/* Description */}
+          <p className="font-body text-sm leading-relaxed mb-5"
+            style={{ color: "rgba(200,224,214,0.55)" }}>
+            {plan.description}
+          </p>
+
+          {/* Divider */}
+          <div className="h-px mb-5"
+            style={{ background: isPopular ? "rgba(200,224,214,0.18)" : "rgba(255,255,255,0.06)" }}
+          />
+
+          {/* Features */}
+          <ul className="flex flex-col gap-2.5 mb-7 flex-1">
+            {plan.features.map((f) => (
+              <li key={f} className="flex items-start gap-2.5">
+                <Check size={13} className="mt-0.5 flex-shrink-0"
+                  style={{ color: isPopular ? "rgba(200,224,214,0.9)" : "rgba(200,224,214,0.55)" }}
+                />
+                <span className="font-body text-sm"
+                  style={{ color: "rgba(246,244,239,0.6)" }}>
+                  {f}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA */}
+          <a
+            href="#contact"
+            className="flex items-center justify-center gap-2 rounded-xl py-3 font-body font-semibold text-sm transition-all duration-200 group"
+            style={
+              isPopular
+                ? { background: "var(--color-accent)", color: "var(--color-ink)" }
+                : { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(246,244,239,0.75)" }
+            }
+            onMouseEnter={(e) => {
+              if (!isPopular) {
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.1)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "rgba(246,244,239,0.95)";
               }
-            : {
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                color: "rgba(246,244,239,0.75)",
+            }}
+            onMouseLeave={(e) => {
+              if (!isPopular) {
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.06)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "rgba(246,244,239,0.75)";
               }
-        }
-        onMouseEnter={(e) => {
-          if (!isPopular) {
-            (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.1)";
-            (e.currentTarget as HTMLAnchorElement).style.color = "rgba(246,244,239,0.95)";
-          }
-        }}
-        onMouseLeave={(e) => {
-          if (!isPopular) {
-            (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.06)";
-            (e.currentTarget as HTMLAnchorElement).style.color = "rgba(246,244,239,0.75)";
-          }
-        }}
-      >
-        {plan.cta}
-        <ArrowRight
-          size={14}
-          className="transition-transform duration-200 group-hover:translate-x-0.5"
-        />
-      </a>
+            }}
+          >
+            {plan.cta}
+            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+          </a>
+        </div>
+      </GlowCard>
     </motion.div>
   );
 }
