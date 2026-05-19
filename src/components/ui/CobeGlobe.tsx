@@ -3,29 +3,38 @@
 import { useEffect, useRef, useCallback } from "react";
 import createGlobe from "cobe";
 
-/* ── NE India clinic locations — shown as markers on globe ── */
+/* ── Major Indian cities + NE India clinic locations ── */
 const MARKERS = [
-  { id: "guwahati",   location: [26.14,  91.74] as [number,number], size: 0.06 }, // primary (clinic)
-  { id: "shillong",   location: [25.57,  91.88] as [number,number], size: 0.03 },
-  { id: "imphal",     location: [24.81,  93.95] as [number,number], size: 0.03 },
-  { id: "kohima",     location: [25.67,  94.11] as [number,number], size: 0.025 },
-  { id: "itanagar",   location: [27.08,  93.60] as [number,number], size: 0.025 },
-  { id: "aizawl",     location: [23.72,  92.71] as [number,number], size: 0.025 },
-  { id: "agartala",   location: [23.83,  91.26] as [number,number], size: 0.025 },
-  { id: "dibrugarh",  location: [27.47,  94.90] as [number,number], size: 0.025 },
-  { id: "silchar",    location: [24.82,  92.80] as [number,number], size: 0.025 },
-  { id: "tezpur",     location: [26.63,  92.79] as [number,number], size: 0.02  },
-  { id: "jorhat",     location: [26.75,  94.20] as [number,number], size: 0.02  },
+  // Major metros — large, visible from farther out
+  { id: "guwahati",  location: [26.14,  91.74] as [number,number], size: 0.08  }, // clinic — biggest
+  { id: "delhi",     location: [28.61,  77.21] as [number,number], size: 0.07  }, // New Delhi
+  { id: "mumbai",    location: [19.08,  72.88] as [number,number], size: 0.07  }, // Mumbai
+  { id: "jaipur",    location: [26.91,  75.79] as [number,number], size: 0.06  }, // Rajasthan
+  { id: "kolkata",   location: [22.57,  88.36] as [number,number], size: 0.055 }, // West Bengal
+  // NE state capitals — medium
+  { id: "shillong",  location: [25.57,  91.88] as [number,number], size: 0.04  },
+  { id: "imphal",    location: [24.81,  93.95] as [number,number], size: 0.035 },
+  { id: "kohima",    location: [25.67,  94.11] as [number,number], size: 0.03  },
+  { id: "itanagar",  location: [27.08,  93.60] as [number,number], size: 0.03  },
+  { id: "aizawl",    location: [23.72,  92.71] as [number,number], size: 0.03  },
+  { id: "agartala",  location: [23.83,  91.26] as [number,number], size: 0.03  },
+  { id: "dibrugarh", location: [27.47,  94.90] as [number,number], size: 0.03  },
+  { id: "silchar",   location: [24.82,  92.80] as [number,number], size: 0.025 },
 ];
 
-/* ── Arcs: patients traveling to Guwahati ── */
+/* ── Arcs: patients/travelers flowing to Guwahati ── */
 const ARCS = [
-  { id: "a1", from: [25.67, 94.11] as [number,number], to: [26.14, 91.74] as [number,number] },
-  { id: "a2", from: [24.81, 93.95] as [number,number], to: [26.14, 91.74] as [number,number] },
-  { id: "a3", from: [27.08, 93.60] as [number,number], to: [26.14, 91.74] as [number,number] },
-  { id: "a4", from: [23.72, 92.71] as [number,number], to: [26.14, 91.74] as [number,number] },
-  { id: "a5", from: [23.83, 91.26] as [number,number], to: [26.14, 91.74] as [number,number] },
-  { id: "a6", from: [27.47, 94.90] as [number,number], to: [26.14, 91.74] as [number,number] },
+  // Major cities → Guwahati
+  { id: "arc-delhi",    from: [28.61,  77.21] as [number,number], to: [26.14, 91.74] as [number,number] },
+  { id: "arc-mumbai",   from: [19.08,  72.88] as [number,number], to: [26.14, 91.74] as [number,number] },
+  { id: "arc-jaipur",   from: [26.91,  75.79] as [number,number], to: [26.14, 91.74] as [number,number] },
+  { id: "arc-kolkata",  from: [22.57,  88.36] as [number,number], to: [26.14, 91.74] as [number,number] },
+  // NE states → Guwahati
+  { id: "arc-kohima",   from: [25.67,  94.11] as [number,number], to: [26.14, 91.74] as [number,number] },
+  { id: "arc-imphal",   from: [24.81,  93.95] as [number,number], to: [26.14, 91.74] as [number,number] },
+  { id: "arc-itanagar", from: [27.08,  93.60] as [number,number], to: [26.14, 91.74] as [number,number] },
+  { id: "arc-aizawl",   from: [23.72,  92.71] as [number,number], to: [26.14, 91.74] as [number,number] },
+  { id: "arc-agartala", from: [23.83,  91.26] as [number,number], to: [26.14, 91.74] as [number,number] },
 ];
 
 export function CobeGlobe({ className = "" }: { className?: string }) {
@@ -88,8 +97,8 @@ export function CobeGlobe({ className = "" }: { className?: string }) {
 
     let globe: ReturnType<typeof createGlobe> | null = null;
     let rafId: number;
-    /* Start phi centered on India (lon ≈ 91.7°E → ~−1.6 rad) */
-    let phi = -1.6;
+    /* Center on India: lon ≈ 80°E avg → phi ≈ −1.4 rad */
+    let phi = -1.42;
 
     function init() {
       const w = canvas!.offsetWidth;
@@ -101,27 +110,28 @@ export function CobeGlobe({ className = "" }: { className?: string }) {
         width:  w * dpr,
         height: w * dpr,
         phi,
-        theta: 0.25,
-        dark:          1,
-        diffuse:       1.4,
+        theta:         0.30,
+        dark:          0,           // light mode globe
+        diffuse:       1.3,
         mapSamples:    16000,
-        mapBrightness: 2.2,
-        /* Site palette */
-        baseColor:    [0.12, 0.28, 0.24],   // #1f4840 — dark teal globe
-        markerColor:  [0.78, 0.88, 0.84],   // #C8E0D6 — mint markers
-        glowColor:    [0.22, 0.45, 0.38],   // soft teal halo
-        arcColor:     [0.85, 0.71, 0.54],   // #D8B589 — gold arcs
-        arcWidth:        0.6,
-        arcHeight:       0.3,
+        mapBrightness: 3.5,
+        /* Light globe — teal ocean, clearly visible on light bg */
+        baseColor:    [0.62, 0.80, 0.74],  // medium mint — visible on white page
+        markerColor:  [0.06, 0.30, 0.20],  // deep teal dots
+        glowColor:    [0.70, 0.88, 0.80],  // soft mint halo
+        arcColor:     [0.78, 0.40, 0.10],  // amber/gold arcs
+        arcWidth:        0.65,
+        arcHeight:       0.38,
         markerElevation: 0.01,
+        scale:           1.15,
         markers: MARKERS,
         arcs:    ARCS,
-        opacity: 0.85,
+        opacity: 0.95,
       });
 
       function animate() {
         if (!isPaused.current) {
-          phi += 0.003;
+          phi += 0.002;
           const tMin = -0.35, tMax = 0.35;
           if (Math.abs(velocity.current.phi) > 0.0001 || Math.abs(velocity.current.theta) > 0.0001) {
             phiOffset.current += velocity.current.phi;
@@ -134,7 +144,7 @@ export function CobeGlobe({ className = "" }: { className?: string }) {
         }
         globe!.update({
           phi:   phi + phiOffset.current + dragOffset.current.phi,
-          theta: 0.25 + thetaOff.current + dragOffset.current.theta,
+          theta: 0.30 + thetaOff.current + dragOffset.current.theta,
         });
         rafId = requestAnimationFrame(animate);
       }

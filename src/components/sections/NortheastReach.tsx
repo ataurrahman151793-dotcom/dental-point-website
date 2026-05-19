@@ -62,7 +62,7 @@ export default function NortheastReach() {
               <div
                 className="absolute inset-0 rounded-full pointer-events-none"
                 style={{
-                  background: "radial-gradient(circle, rgba(47,93,82,0.35) 0%, transparent 70%)",
+                  background: "radial-gradient(circle, rgba(100,180,155,0.22) 0%, transparent 70%)",
                   transform: "scale(1.1)",
                 }}
                 aria-hidden="true"
