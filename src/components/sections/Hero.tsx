@@ -1,7 +1,9 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+
+const VIDEOS = ["/videos/video1.mp4", "/videos/video2.mp4", "/videos/video3.mp4"];
 import {
   motion,
   useScroll,
@@ -49,6 +51,19 @@ function AvatarStack() {
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  /* Sequential video playback: video1 → video2 → video3 → loop */
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoIndex, setVideoIndex] = useState(0);
+  const handleVideoEnd = useCallback(() => {
+    setVideoIndex((i) => (i + 1) % VIDEOS.length);
+  }, []);
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.src = VIDEOS[videoIndex];
+    v.play().catch(() => {});
+  }, [videoIndex]);
 
   /* Responsive initial dimensions */
   const [isMobile, setIsMobile] = useState(false);
@@ -102,7 +117,7 @@ export default function Hero() {
         {/* ── Background image (fixed, never moves) ── */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-clinic-interior.webp"
+            src="/images/hero-background.png"
             alt=""
             fill
             priority
@@ -171,13 +186,14 @@ export default function Hero() {
             }}
           >
             <video
-              src="/videos/box-video.mp4"
+              ref={videoRef}
+              src={VIDEOS[0]}
               poster="/images/hero-clinic-interior.webp"
               autoPlay
               muted
-              loop
               playsInline
               preload="metadata"
+              onEnded={handleVideoEnd}
               aria-label="Dental Point clinic showcase"
               className="w-full h-full object-cover"
             />
