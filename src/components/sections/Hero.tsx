@@ -102,7 +102,7 @@ export default function Hero() {
         {/* ── Background image (fixed, never moves) ── */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-background.webp"
+            src="/images/hero-clinic-interior.webp"
             alt=""
             fill
             priority
@@ -171,8 +171,8 @@ export default function Hero() {
             }}
           >
             <video
-              src="/videos/hero-combined.mp4"
-              poster="/images/hero-video-poster.webp"
+              src="/videos/box-video.mp4"
+              poster="/images/hero-clinic-interior.webp"
               autoPlay
               muted
               loop
