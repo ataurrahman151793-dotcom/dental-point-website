@@ -17,12 +17,7 @@ import { CLINIC } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
 
-const SplineScene = dynamic(
-  () => import("@/components/three/SplineScene").then((m) => ({ default: m.SplineScene })),
-  { ssr: false }
-);
-
-const SPLINE_ROBOT = "https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode";
+const ToothScene = dynamic(() => import("@/components/three/ToothScene"), { ssr: false });
 
 /* ─── Site palette aurora colours ─── */
 const AURORA_COLORS = ["#2F5D52", "#C8E0D6", "#D8B589", "#5B8C7E"];
@@ -126,18 +121,15 @@ function AuroraSection() {
           <AvatarStack />
         </div>
 
-        {/* Right — Spline Robot (hidden on mobile) */}
+        {/* Right — 3D Tooth (hidden on mobile) */}
         <motion.div
-          className="hidden lg:flex flex-shrink-0 items-center justify-center"
-          style={{ width: 480, height: 500 }}
+          className="hidden lg:block flex-shrink-0"
+          style={{ width: 380, height: 440 }}
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          <SplineScene
-            scene={SPLINE_ROBOT}
-            className="w-full h-full"
-          />
+          <ToothScene />
         </motion.div>
       </div>
     </motion.section>
