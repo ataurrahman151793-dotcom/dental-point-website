@@ -2,17 +2,48 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-
-const VIDEOS = ["/videos/video1.mp4", "/videos/video2.mp4", "/videos/video3.mp4"];
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Phone, Star, ChevronDown } from "lucide-react";
 import { CLINIC } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+
+const VIDEOS = ["/videos/video1.mp4", "/videos/video2.mp4", "/videos/video3.mp4"];
+
+/* ─── Three stacked videos — crossfade on end, no flash ─── */
+function SequentialVideo() {
+  const [active, setActive] = useState(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
+
+  const advance = useCallback((finished: number) => {
+    const next = (finished + 1) % VIDEOS.length;
+    setActive(next);
+    videoRefs.current[next]?.play().catch(() => {});
+  }, []);
+
+  return (
+    <div className="relative w-full h-full" style={{ background: "#000" }}>
+      {VIDEOS.map((src, i) => (
+        <video
+          key={src}
+          ref={(el) => { videoRefs.current[i] = el; }}
+          src={src}
+          autoPlay={i === 0}
+          muted
+          playsInline
+          preload={i === 0 ? "auto" : "metadata"}
+          onEnded={() => advance(i)}
+          aria-label="Dental Point clinic showcase"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            opacity: active === i ? 1 : 0,
+            transition: "opacity 0.6s ease",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 /* ─── Avatar strip ─── */
 function AvatarStack() {
@@ -46,26 +77,12 @@ function AvatarStack() {
 }
 
 /* ══════════════════════════════════════════
-   HERO — background image + scroll-expanding video
+   HERO
    ══════════════════════════════════════════ */
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  /* Sequential video playback: video1 → video2 → video3 → loop */
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoIndex, setVideoIndex] = useState(0);
-  const handleVideoEnd = useCallback(() => {
-    setVideoIndex((i) => (i + 1) % VIDEOS.length);
-  }, []);
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.src = VIDEOS[videoIndex];
-    v.play().catch(() => {});
-  }, [videoIndex]);
-
-  /* Responsive initial dimensions */
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -79,42 +96,35 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  /* ── Scroll-driven box dimensions ── */
+  /* Box grows on scroll */
   const boxWidth = useTransform(scrollYProgress, (p) => {
     const start = isMobile ? 90 : 60;
     return `${start + (100 - start) * p}%`;
   });
-
   const boxHeight = useTransform(scrollYProgress, (p) => {
     const start = isMobile ? 50 : 60;
     return `${start + (100 - start) * p}vh`;
   });
+  const boxRadius  = useTransform(scrollYProgress, [0, 1], [24, 0]);
+  const boxShadow  = useTransform(scrollYProgress, [0, 0.7, 1], [
+    "0 30px 80px rgba(0,0,0,0.4)",
+    "0 10px 30px rgba(0,0,0,0.15)",
+    "0 0px 0px rgba(0,0,0,0)",
+  ]);
 
-  const boxRadius = useTransform(scrollYProgress, [0, 1], [24, 0]);
+  /* Background darkens as scroll starts */
+  const bgDark = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.45, 0.7]);
 
-  const boxShadow = useTransform(
-    scrollYProgress,
-    [0, 0.7, 1],
-    [
-      "0 30px 80px rgba(0,0,0,0.4)",
-      "0 10px 30px rgba(0,0,0,0.15)",
-      "0 0px 0px rgba(0,0,0,0)",
-    ]
-  );
-
-  /* ── Text fades out as video expands ── */
-  const textOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
-  const textY       = useTransform(scrollYProgress, [0, 0.45], [0, -40]);
+  /* Text fades out */
+  const textOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const textY       = useTransform(scrollYProgress, [0, 0.4], [0, -40]);
   const hintOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
 
   return (
-    /* 180vh container — enough scroll distance for smooth expansion */
     <div ref={containerRef} style={{ height: "180vh" }} className="relative">
-
-      {/* Sticky viewport-pinned frame */}
       <div className="sticky top-0 h-[100dvh] overflow-hidden">
 
-        {/* ── Background image (fixed, never moves) ── */}
+        {/* ── Background image — natural colour, darkens on scroll ── */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-background.png"
@@ -124,41 +134,35 @@ export default function Hero() {
             quality={90}
             className="object-cover object-center"
           />
-          {/* Gradient overlay — top lighter, bottom darker */}
-          <div
+          {/* Scroll-driven dark overlay — starts transparent */}
+          <motion.div
             className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)",
-            }}
+            style={{ background: "#000", opacity: prefersReducedMotion ? 0.4 : bgDark }}
           />
         </div>
 
-        {/* ── Text + CTAs (z-20, fades on scroll) ── */}
+        {/* ── Text + CTAs ── */}
         <motion.div
           className="absolute inset-x-0 top-0 z-20 flex flex-col items-center text-center gap-5 pt-24 md:pt-28 px-6"
           style={{
             opacity: prefersReducedMotion ? 1 : textOpacity,
-            y:       prefersReducedMotion ? 0  : textY,
+            y:       prefersReducedMotion ? 0 : textY,
           }}
         >
           <span className="inline-block rounded-full bg-white/10 px-4 py-1.5 text-xs font-body uppercase tracking-widest text-white/70">
             Northeast India&apos;s premier implant centre
           </span>
-
           <h1
             className="font-display font-bold text-white lowercase leading-tight"
             style={{ fontSize: "clamp(2.8rem, 8vw, 5.5rem)" }}
           >
             elevate<br />your smile
           </h1>
-
           <p className="text-base md:text-lg text-white/65 leading-relaxed max-w-lg">
             Computer-guided implants, same-day crowns, and painless laser
             treatment — all delivered by MDS-qualified specialists who
             genuinely care about your smile.
           </p>
-
           <div className="flex flex-col sm:flex-row gap-4 items-center">
             <Button href="#contact" variant="primary">schedule now</Button>
             <a
@@ -169,11 +173,10 @@ export default function Hero() {
               call {CLINIC.phone}
             </a>
           </div>
-
           <AvatarStack />
         </motion.div>
 
-        {/* ── Expanding video box (z-10, centered) ── */}
+        {/* ── Expanding video box ── */}
         <div className="absolute inset-0 z-10 flex items-center justify-center">
           <motion.div
             style={{
@@ -185,18 +188,14 @@ export default function Hero() {
               willChange:   "width, height, border-radius",
             }}
           >
-            <video
-              ref={videoRef}
-              src={VIDEOS[0]}
-              poster="/images/hero-clinic-interior.webp"
-              autoPlay
-              muted
-              playsInline
-              preload="metadata"
-              onEnded={handleVideoEnd}
-              aria-label="Dental Point clinic showcase"
-              className="w-full h-full object-cover"
-            />
+            {!prefersReducedMotion && <SequentialVideo />}
+            {prefersReducedMotion && (
+              <video
+                src={VIDEOS[0]}
+                autoPlay muted loop playsInline
+                className="w-full h-full object-cover"
+              />
+            )}
           </motion.div>
         </div>
 
