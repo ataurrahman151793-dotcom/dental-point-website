@@ -2,15 +2,14 @@
 
 import { useEffect, useRef, ReactNode } from "react";
 
-/* Glow colours — hue base + spread across viewport width */
-const GLOW_COLORS = {
-  teal:   { base: 160, spread: 80  },
-  green:  { base: 120, spread: 200 },
-  blue:   { base: 220, spread: 200 },
-  gold:   { base: 40,  spread: 60  },
+export const GLOW_COLORS = {
+  teal:   { base: 160, spread: 100 },
+  blue:   { base: 210, spread: 120 },
+  purple: { base: 270, spread: 120 },
+  gold:   { base: 38,  spread: 80  },
+  rose:   { base: 340, spread: 100 },
 };
 
-/* Injected once into <head> — all [data-glow] elements share this CSS */
 const GLOW_CSS = `
 [data-glow]::before,[data-glow]::after{
   pointer-events:none;content:"";position:absolute;
@@ -27,16 +26,16 @@ const GLOW_CSS = `
   background-image:radial-gradient(
     calc(var(--spotlight-size)*.75) calc(var(--spotlight-size)*.75) at
     calc(var(--x,0)*1px) calc(var(--y,0)*1px),
-    hsl(var(--hue,160) calc(var(--saturation,80)*1%) calc(var(--lightness,55)*1%) / var(--border-spot-opacity,1)),
+    hsl(var(--hue,160) 100% 60% / var(--border-spot-opacity,1)),
     transparent 100%
   );
-  filter:brightness(2.2);
+  filter:brightness(3);
 }
 [data-glow]::after{
   background-image:radial-gradient(
     calc(var(--spotlight-size)*.5) calc(var(--spotlight-size)*.5) at
     calc(var(--x,0)*1px) calc(var(--y,0)*1px),
-    hsl(0 100% 100% / var(--border-light-opacity,.6)),
+    hsl(0 100% 100% / var(--border-light-opacity,.7)),
     transparent 100%
   );
 }
@@ -56,9 +55,7 @@ export interface GlowCardProps {
   children: ReactNode;
   className?: string;
   glowColor?: keyof typeof GLOW_COLORS;
-  /** Card background colour (glass dark) */
   bg?: string;
-  /** Border colour when mouse is away */
   border?: string;
 }
 
@@ -71,7 +68,6 @@ export function GlowCard({
 }: GlowCardProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  /* Inject CSS once */
   useEffect(() => {
     if (injected) return;
     const s = document.createElement("style");
@@ -80,7 +76,6 @@ export function GlowCard({
     injected = true;
   }, []);
 
-  /* Sync mouse position → CSS vars on every [data-glow] element */
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -107,17 +102,15 @@ export function GlowCard({
           "--spread":         spread,
           "--radius":         "14",
           "--border":         "1.5",
-          "--size":           "300",
+          "--size":           "380",
           "--outer":          "1",
-          "--saturation":     "80",
-          "--lightness":      "60",
           "--border-size":    "calc(var(--border) * 1px)",
           "--spotlight-size": "calc(var(--size) * 1px)",
           "--hue":            "calc(var(--base) + var(--xp, 0) * var(--spread))",
           backgroundImage: `radial-gradient(
             var(--spotlight-size) var(--spotlight-size) at
             calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-            hsl(var(--hue, 160) 70% 65% / 0.09), transparent
+            hsl(var(--hue, 160) 100% 65% / 0.18), transparent
           )`,
           backgroundColor:      bg,
           backgroundSize:       "calc(100% + 2*var(--border-size)) calc(100% + 2*var(--border-size))",
@@ -128,7 +121,6 @@ export function GlowCard({
         } as React.CSSProperties
       }
     >
-      {/* Inner glow-blur node required by the CSS */}
       <div data-glow aria-hidden="true" />
       {children}
     </div>

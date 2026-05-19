@@ -171,7 +171,7 @@ export default function SmileScore() {
 
         {/* Card */}
         <GlowCard
-          glowColor="teal"
+          glowColor="purple"
           bg="rgba(255,255,255,0.05)"
           border="rgba(255,255,255,0.1)"
           className="w-full max-w-xl overflow-hidden"

@@ -4,7 +4,10 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import Eyebrow from "@/components/ui/Eyebrow";
-import { GlowCard } from "@/components/ui/GlowCard";
+import { GlowCard, GLOW_COLORS } from "@/components/ui/GlowCard";
+
+/* One distinct glow per card — blue, teal (popular), purple, gold */
+const CARD_GLOW = ["blue", "teal", "purple", "gold"] as const satisfies (keyof typeof GLOW_COLORS)[];
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const PLANS = [
@@ -73,9 +76,10 @@ const PLANS = [
 interface PlanCardProps {
   plan: (typeof PLANS)[0];
   index: number;
+  glowColor: (typeof CARD_GLOW)[number];
 }
 
-function PlanCard({ plan, index }: PlanCardProps) {
+function PlanCard({ plan, index, glowColor }: PlanCardProps) {
   const isPopular = plan.popular;
 
   return (
@@ -87,7 +91,7 @@ function PlanCard({ plan, index }: PlanCardProps) {
       className="h-full"
     >
       <GlowCard
-        glowColor="teal"
+        glowColor={glowColor}
         bg={isPopular ? "rgba(47,93,82,0.28)" : "rgba(255,255,255,0.04)"}
         border={isPopular ? "rgba(200,224,214,0.35)" : "rgba(255,255,255,0.08)"}
         className={`flex flex-col p-6 md:p-7 h-full overflow-hidden${isPopular ? " pricing-popular-glow" : ""}`}
@@ -320,7 +324,7 @@ export default function Pricing() {
         {/* Card grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {PLANS.map((plan, i) => (
-            <PlanCard key={plan.name} plan={plan} index={i} />
+            <PlanCard key={plan.name} plan={plan} index={i} glowColor={CARD_GLOW[i]} />
           ))}
         </div>
 
