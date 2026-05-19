@@ -83,15 +83,13 @@ function PlanCard({ plan, index }: PlanCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.09, ease: [0.16, 1, 0.3, 1] }}
-      className="relative flex flex-col rounded-2xl p-6 md:p-7 overflow-hidden"
+      className={`relative flex flex-col rounded-2xl p-6 md:p-7 overflow-hidden${isPopular ? " pricing-popular-glow" : ""}`}
       style={
         isPopular
           ? {
               background:
                 "linear-gradient(145deg, rgba(200,224,214,0.18) 0%, rgba(47,93,82,0.35) 100%)",
               border: "1.5px solid rgba(200,224,214,0.35)",
-              boxShadow:
-                "0 0 0 1px rgba(200,224,214,0.1), 0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12)",
               backdropFilter: "blur(12px)",
             }
           : {
@@ -365,17 +363,20 @@ export default function Pricing() {
         </div>
 
         {/* Footer note */}
-        <motion.p
-          className="text-center font-body text-xs"
-          style={{ color: "rgba(200,224,214,0.35)" }}
+        <motion.div
+          className="text-center flex flex-col gap-1"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          Prices shown are starting estimates. Final cost confirmed after your
-          free consultation. No hidden charges.
-        </motion.p>
+          <p className="font-body text-xs" style={{ color: "rgba(200,224,214,0.35)" }}>
+            Prices shown are starting estimates. Final cost confirmed after your free consultation.
+          </p>
+          <p className="font-body text-xs font-medium" style={{ color: "rgba(200,224,214,0.5)" }}>
+            All prices include GST. No hidden charges. EMI starts from ₹1,500/month.
+          </p>
+        </motion.div>
 
       </div>
     </section>

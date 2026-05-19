@@ -22,7 +22,7 @@ function ExpertiseRow({
   return (
     <div className="overflow-hidden py-1.5">
       <div
-        className={`flex w-max ${!reducedMotion ? animClass : ""}`}
+        className={`flex w-max ${!reducedMotion ? animClass : ""} hover:[animation-play-state:paused]`}
         style={
           reducedMotion
             ? undefined

@@ -313,9 +313,14 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-5">
-          <p className="text-xs font-body" style={{ color: "rgba(246,244,239,0.38)" }}>
-            &copy; {new Date().getFullYear()} {CLINIC.name}. All rights reserved.
-          </p>
+          <div className="flex flex-col gap-1 text-center sm:text-left">
+            <p className="text-xs font-body" style={{ color: "rgba(246,244,239,0.38)" }}>
+              &copy; {new Date().getFullYear()} {CLINIC.name}. All rights reserved.
+            </p>
+            <p className="text-xs font-body" style={{ color: "rgba(246,244,239,0.25)" }}>
+              Proudly serving Guwahati, Dispur, Beltola, and all of Northeast India since 2013.
+            </p>
+          </div>
           <div className="flex items-center gap-5">
             {["privacy policy", "terms of service", "accessibility"].map((item) => (
               <a

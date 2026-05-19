@@ -15,11 +15,11 @@ const clinicSchema = {
   description:
     "MDS-qualified dental specialists offering computer-guided implants, same-day crowns, laser dentistry, and Invisalign in Guwahati, Assam.",
   url: "https://dentalpointguwahati.com",
-  telephone: "+918460397036",
+  telephone: "+919864097338",
   priceRange: "₹₹",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "N.C. Hazarika Complex, Dispur",
+    streetAddress: "N.C. Hazarika Complex, Beltola Basistha Road, near Last Gate",
     addressLocality: "Guwahati",
     addressRegion: "Assam",
     postalCode: "781006",
@@ -27,8 +27,8 @@ const clinicSchema = {
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: 26.1445,
-    longitude: 91.7898,
+    latitude: 26.139001,
+    longitude: 91.789896,
   },
   openingHoursSpecification: [
     {
@@ -41,19 +41,19 @@ const clinicSchema = {
         "Friday",
         "Saturday",
       ],
-      opens: "10:00",
-      closes: "19:00",
+      opens: "09:00",
+      closes: "21:00",
     },
   ],
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "4.9",
     bestRating: "5",
-    ratingCount: "500",
+    ratingCount: "300",
   },
   sameAs: [
     "https://www.facebook.com/dentalpointguwahati",
-    "https://www.instagram.com/dentalpointguwahati",
+    "https://www.instagram.com/dentalpointassam",
   ],
 };
 
@@ -108,6 +108,12 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
+  },
+  other: {
+    "geo.region":    "IN-AS",
+    "geo.placename": "Guwahati, Assam",
+    "geo.position":  "26.139001;91.789896",
+    "ICBM":          "26.139001, 91.789896",
   },
 };
 

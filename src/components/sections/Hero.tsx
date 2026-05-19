@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
 import {
   motion,
   useScroll,
@@ -15,6 +16,8 @@ import { Stars } from "@react-three/drei";
 import { CLINIC } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
+
+const ToothScene = dynamic(() => import("@/components/three/ToothScene"), { ssr: false });
 
 /* ─── Site palette aurora colours ─── */
 const AURORA_COLORS = ["#2F5D52", "#C8E0D6", "#D8B589", "#5B8C7E"];
@@ -80,46 +83,54 @@ function AuroraSection() {
         </Canvas>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center gap-8 max-w-2xl">
-        {/* Eyebrow */}
-        <span className="inline-block rounded-full bg-white/10 px-4 py-1.5 text-xs font-body uppercase tracking-widest text-white/70">
-          Guwahati&apos;s premier implant centre
-        </span>
+      {/* Two-column layout — text left, 3D tooth right on desktop */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
 
-        <h2
-          className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
-        >
-          precision care,{" "}
-          <span className="bg-gradient-to-r from-[#D8B589] to-[#C8E0D6] bg-clip-text text-transparent">
-            crafted
-          </span>{" "}
-          for your comfort
-        </h2>
+        {/* Left — copy */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-8 flex-1">
+          <span className="inline-block rounded-full bg-white/10 px-4 py-1.5 text-xs font-body uppercase tracking-widest text-white/70">
+            Northeast India&apos;s premier implant centre
+          </span>
 
-        <p className="text-lg text-white/65 leading-relaxed">
-          Computer-guided implants, same-day crowns, and painless laser treatment — all delivered by MDS-qualified specialists who genuinely care about your smile.
-        </p>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            precision care,{" "}
+            <span className="bg-gradient-to-r from-[#D8B589] to-[#C8E0D6] bg-clip-text text-transparent">
+              crafted
+            </span>{" "}
+            for your comfort
+          </h2>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <Button href="#contact" variant="primary">
-            schedule now
-          </Button>
+          <p className="text-lg text-white/65 leading-relaxed max-w-lg">
+            Computer-guided implants, same-day crowns, and painless laser treatment — all delivered by MDS-qualified specialists who genuinely care about your smile.
+          </p>
 
-          <motion.a
-            href={CLINIC.phoneHref}
-            style={{ border, boxShadow }}
-            whileHover={{ scale: 1.015 }}
-            whileTap={{ scale: 0.985 }}
-            className="group flex items-center gap-2 rounded-full bg-white/5 px-6 py-3 text-white/90 transition-colors hover:bg-white/10 text-sm font-medium"
-          >
-            <Phone size={15} />
-            call {CLINIC.phone}
-          </motion.a>
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <Button href="#contact" variant="primary">schedule now</Button>
+            <motion.a
+              href={CLINIC.phoneHref}
+              style={{ border, boxShadow }}
+              whileHover={{ scale: 1.015 }}
+              whileTap={{ scale: 0.985 }}
+              className="group flex items-center gap-2 rounded-full bg-white/5 px-6 py-3 text-white/90 transition-colors hover:bg-white/10 text-sm font-medium"
+            >
+              <Phone size={15} />
+              call {CLINIC.phone}
+            </motion.a>
+          </div>
+
+          <AvatarStack />
         </div>
 
-        <AvatarStack />
+        {/* Right — 3D Tooth (hidden on mobile) */}
+        <motion.div
+          className="hidden lg:block flex-shrink-0"
+          style={{ width: 380, height: 440 }}
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <ToothScene />
+        </motion.div>
       </div>
     </motion.section>
   );

@@ -252,14 +252,27 @@ export default function Doctors() {
                   >
                     {doc.name.split(" ")[1][0]}
                   </div>
-                  <div>
-                    <p className="font-display text-base font-semibold text-white lowercase">
-                      {doc.name.toLowerCase()}
-                    </p>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="font-display text-base font-semibold text-white lowercase">
+                        {doc.name.toLowerCase()}
+                      </p>
+                      <span className="text-[10px] font-body font-bold uppercase tracking-widest px-1.5 py-0.5 rounded" style={{ background: "rgba(200,224,214,0.15)", color: "var(--color-mint)" }}>
+                        {doc.experience}
+                      </span>
+                    </div>
                     <p className="text-xs font-medium mb-2 uppercase tracking-wide" style={{ color: "var(--color-mint)" }}>
                       {doc.credentials}
                     </p>
-                    <p className="text-sm text-white/60 line-clamp-2">{doc.bio}</p>
+                    <p className="text-sm text-white/60 line-clamp-2 mb-2">{doc.bio}</p>
+                    {/* Language chips */}
+                    <div className="flex flex-wrap gap-1">
+                      {doc.languages.map((lang) => (
+                        <span key={lang} className="text-[10px] font-body px-2 py-0.5 rounded-full" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(246,244,239,0.5)" }}>
+                          {lang}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               ))}

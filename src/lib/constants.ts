@@ -65,13 +65,21 @@ export const DOCTORS = [
     name: "Dr. Dhritiman Borah",
     credentials: "MDS, Implantologist",
     bio: "Dr. Dhritiman brings over 12 years of specialized implantology experience to Dental Point. Trained at premier institutions including AIIMS, he is an expert in computer-guided implant surgery, full-arch rehabilitation, and bone grafting. Patients trust him for his precise technique and commitment to completely pain-free outcomes.",
-    image: "/images/doctors/dr-jackson.webp",
+    image: "/images/doctors/dr-dhritiman-borah.webp",
+    experience: "12+ years",
+    specializes: ["Dental Implants", "Bone Grafting", "Full-Arch Rehab", "Guided Surgery"],
+    languages: ["Assamese", "Bengali", "Hindi", "English"],
+    regNo: "ASD/MCI/XXXXX", // TODO[CLIENT]: confirm real MCI registration number
   },
   {
     name: "Dr. Asif Ahmed",
     credentials: "MDS, Prosthodontist & Cosmetic Dentist",
     bio: "Dr. Asif Ahmed is a specialist prosthodontist passionate about transforming smiles. His expertise spans porcelain veneers, smile design, clear aligners, and full-mouth rehabilitation. Colleagues and patients alike recognize his artistic vision and meticulous attention to every detail of your smile.",
-    image: "/images/doctors/dr-rund.webp",
+    image: "/images/doctors/dr-asif-ahmed.webp",
+    experience: "10+ years",
+    specializes: ["Veneers", "Smile Design", "Clear Aligners", "Crown & Bridge"],
+    languages: ["Assamese", "Bengali", "Hindi", "English", "Bodo"],
+    regNo: "ASD/MCI/XXXXX", // TODO[CLIENT]: confirm real MCI registration number
   },
 ];
 

@@ -234,6 +234,17 @@ html.lenis, html.lenis body {
 }
 
 /* ─────────────────────────────────────────────────────────
+   PRICING — popular card pulsing border glow
+   ───────────────────────────────────────────────────────── */
+@keyframes popular-glow {
+  0%,100% { box-shadow: 0 0 0 1px rgba(200,224,214,0.1), 0 20px 60px rgba(0,0,0,0.4), 0 0 18px rgba(200,224,214,0.12); }
+  50%      { box-shadow: 0 0 0 1px rgba(200,224,214,0.1), 0 20px 60px rgba(0,0,0,0.4), 0 0 32px rgba(200,224,214,0.28); }
+}
+.pricing-popular-glow {
+  animation: popular-glow 3s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────
    THREE.JS CANVAS WRAPPER
    ───────────────────────────────────────────────────────── */
 .r3f-canvas {

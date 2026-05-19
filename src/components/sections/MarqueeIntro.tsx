@@ -21,7 +21,7 @@ export default function MarqueeIntro() {
       style={{ background: "var(--color-primary)" }}
       aria-label="Practice highlights"
     >
-      <Marquee speed={25}>
+      <Marquee speed={25} pauseOnHover>
         {items.map((item, i) => (
           <span
             key={i}

@@ -32,7 +32,7 @@ export default function InstagramFeed() {
           <div className="flex flex-col gap-3">
             <Eyebrow>follow along</Eyebrow>
             <h2 id="instagram-heading" className="font-display text-3xl text-ink lowercase">
-              @lumendental
+              @dentalpointassam
             </h2>
           </div>
           <a
@@ -40,7 +40,7 @@ export default function InstagramFeed() {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-hover transition-colors"
-            aria-label="Follow Lumen Dental on Instagram"
+            aria-label="Follow Dental Point on Instagram"
           >
             <Share2 size={18} />
             <span>follow us</span>
