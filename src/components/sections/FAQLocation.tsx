@@ -203,7 +203,7 @@ export default function FAQLocation() {
             ))}
           </div>
 
-          {/* Map — react-leaflet, dark CartoDB tiles */}
+          {/* Map — Google Maps live embed */}
           <div
             className="relative overflow-hidden flex-1 min-h-[320px]"
             style={{
