@@ -130,7 +130,7 @@ export default function ComfortGallery() {
     <section
       ref={sectionRef}
       aria-labelledby="gallery-heading"
-      className="relative py-16 md:py-24 overflow-hidden"
+      className="relative py-10 md:py-14 overflow-hidden"
       style={{ background: "var(--color-ink)", contain: "layout style" }}
     >
       {/* Ambient radial glow */}

@@ -144,7 +144,7 @@ export default function SmileScore() {
     <section
       id="smile-score"
       aria-labelledby="smile-score-heading"
-      className="py-20 md:py-28 overflow-hidden"
+      className="py-12 md:py-16 overflow-hidden"
       style={{ background: "var(--color-ink)" }}
     >
       <div className="container-site flex flex-col items-center gap-10">

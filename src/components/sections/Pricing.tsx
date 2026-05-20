@@ -224,7 +224,7 @@ export default function Pricing() {
     <section
       id="pricing"
       aria-labelledby="pricing-heading"
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative py-12 md:py-16 overflow-hidden"
       style={{
         backgroundImage: "url('/images/bg-dark-green.png')",
         backgroundSize: "cover",

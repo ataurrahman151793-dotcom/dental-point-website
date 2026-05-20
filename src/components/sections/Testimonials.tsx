@@ -217,7 +217,7 @@ export default function Testimonials() {
     <section
       style={{ background: "var(--color-blush)" }}
       aria-labelledby="reviews-heading"
-      className="relative overflow-hidden py-20 md:py-28"
+      className="relative overflow-hidden py-12 md:py-16"
     >
       {/* Ambient glow */}
       <div

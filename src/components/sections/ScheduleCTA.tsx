@@ -13,7 +13,7 @@ export default function ScheduleCTA() {
   return (
     <section
       ref={ref}
-      className="relative py-28 md:py-36 overflow-hidden"
+      className="relative py-16 md:py-20 overflow-hidden"
       aria-labelledby="cta-heading"
       style={{
         background: "linear-gradient(160deg, #0a1f17 0%, #1a3328 40%, #0d2018 70%, #060f0b 100%)",

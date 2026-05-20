@@ -55,23 +55,6 @@ function ServiceRow({
           <div className="absolute inset-0" style={{ background: bgGradients[index], opacity: 0.18 }} />
         </div>
 
-        {/* Giant number in background */}
-        <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          aria-hidden="true"
-        >
-          <span
-            className="font-display font-bold select-none"
-            style={{
-              fontSize: "clamp(120px, 20vw, 220px)",
-              lineHeight: 1,
-              color: "rgba(255,255,255,0.08)",
-              letterSpacing: "-0.05em",
-            }}
-          >
-            {service.number}
-          </span>
-        </div>
       </motion.div>
 
       {/* Copy side */}

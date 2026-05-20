@@ -23,7 +23,7 @@ export default function InstagramFeed() {
   return (
     <section
       ref={ref}
-      className="py-24"
+      className="py-12 md:py-16"
       style={{ background: "var(--color-bg)" }}
       aria-labelledby="instagram-heading"
     >
