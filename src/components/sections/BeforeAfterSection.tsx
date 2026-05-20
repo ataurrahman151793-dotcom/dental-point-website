@@ -88,7 +88,9 @@ export default function BeforeAfterSection() {
             className="text-base leading-relaxed max-w-lg"
             style={{ color: "rgba(246,244,239,0.55)" }}
           >
-            Hover over each card to reveal real patient transformations — from first visit to final smile.
+            <span className="hidden sm:inline">Hover over</span>
+            <span className="sm:hidden">Drag</span>
+            {" "}each card to reveal real patient transformations — from first visit to final smile.
           </p>
         </motion.div>
 
