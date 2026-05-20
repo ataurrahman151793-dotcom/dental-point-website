@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, startTransition } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { CLINIC, TESTIMONIALS } from "@/lib/constants";
@@ -20,7 +20,7 @@ function ReviewCounter({ target }: { target: number }) {
     hasAnimated.current = true;
 
     if (reducedMotion) {
-      setCount(target);
+      startTransition(() => setCount(target));
       return;
     }
 

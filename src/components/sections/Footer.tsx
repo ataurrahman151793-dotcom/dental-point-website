@@ -129,7 +129,7 @@ const footerCols = [
       { label: "preventive care",  href: "#services" },
       { label: "same-day crowns",  href: "#services" },
       { label: "dental implants",  href: "#services" },
-      { label: "invisalign",       href: "#services" },
+      { label: "clear aligners",    href: "#services" },
       { label: "veneers",          href: "#services" },
       { label: "laser fillings",   href: "#services" },
     ],

@@ -328,19 +328,21 @@ export default function Pricing() {
           ))}
         </div>
 
-        {/* Footer note */}
+        {/* Footer note + mandatory disclaimer */}
         <motion.div
-          className="text-center flex flex-col gap-1"
+          className="text-center flex flex-col gap-1.5 max-w-2xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <p className="font-body text-xs" style={{ color: "rgba(200,224,214,0.35)" }}>
-            Prices shown are starting estimates. Final cost confirmed after your free consultation.
-          </p>
           <p className="font-body text-xs font-medium" style={{ color: "rgba(200,224,214,0.5)" }}>
             All prices include GST. No hidden charges. EMI starts from ₹1,500/month.
+          </p>
+          <p className="font-body text-xs leading-relaxed" style={{ color: "rgba(200,224,214,0.3)" }}>
+            * Starting price for standard cases. Final cost depends on case complexity, brand of implant or
+            material selected, and additional procedures (e.g. bone graft, extraction). A binding quote is
+            provided after your free consultation.
           </p>
         </motion.div>
 

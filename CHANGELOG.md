@@ -1,5 +1,45 @@
 # Dental Point Website — Upgrade Changelog
 
+---
+
+## MOBILE & CREDIBILITY PASS — May 2026
+
+> Build: ✅ 0 errors. Lint: ✅ 0 errors, 9 pre-existing warnings.
+
+### P0 — Critical Mobile Fixes
+- **Marquee pause on mobile** (`globals.css`): `animation-play-state: paused` via `@media (max-width: 767px)` — eliminates continuous GPU repaint in `MarqueeIntro` and `ExpertiseMarquee`.
+- **Contact form real backend** (`/app/api/contact/route.ts`): Next.js API route forwards submissions to Formspree; `ContactForm.tsx` updated from `console.log` to real `fetch POST /api/contact`. Error state shows phone fallback. Requires `FORMSPREE_FORM_ID` env var on Vercel.
+- **DottedSurface disabled on mobile** (`Doctors.tsx`): Three.js WebGL loop with 2,400 particles skipped on mobile (`{!isMobile && <DottedSurface />}`).
+- **Lint errors fixed**: `startTransition` wrapping for `setState` in effects — `Testimonials.tsx:23` and `DiagonalSlider.tsx:92`.
+
+### P2 — Structural / SEO
+- **6 service pages** created under `/(inner)/services/`: dental-implants, clear-aligners, veneers, root-canal, teeth-whitening, kids-dentistry. Each has H1 + location keyword, 350+ word body, FAQPage JSON-LD, BreadcrumbList JSON-LD, CTA.
+- **About page** `/about` with clinic mission, doctor bios, address.
+- **Contact page** `/contact` with contact details grid.
+- **`sitemap.ts`** now uses `SITE_URL` env var + includes all new routes.
+
+### P3 — Credibility & Legal
+- **TRUST_BADGES cleanup** (`constants.ts`): Removed NABH (unverified), replaced Nobel Biocare with generic "Premium Implant Systems", replaced "Invisalign Certified" with "Clear Aligner Specialist", added "Computer-Guided Surgery".
+- **"Invisalign" removed from SEO** (`layout.tsx`): keywords, meta description, OG description, Twitter description, JSON-LD schema description all updated to "clear aligners".
+- **Footer** (`Footer.tsx`): "invisalign" link label → "clear aligners".
+- **Pricing disclaimer** (`Pricing.tsx`): Full binding-quote disclaimer added — complexity, implant brand, additional procedures all disclosed.
+
+### P4 — Nice-to-Have
+- **`theme-color` meta** (`layout.tsx`): `#2F5D52` — Android Chrome status bar now tints brand green.
+- **`SITE_URL` fallback** (`siteConfig.ts`): Updated from `dentalpointguwahati.com` to `dental-point-ataur.vercel.app` (set `NEXT_PUBLIC_SITE_URL` env var when real domain is ready).
+
+### Items Requiring Client Action
+| Item | Action needed |
+|---|---|
+| Contact form delivery | Set `FORMSPREE_FORM_ID` env var in Vercel |
+| Real domain | Set `NEXT_PUBLIC_SITE_URL=https://dentalpointguwahati.com` in Vercel |
+| NABH badge | Provide NABH certificate to add back |
+| Nobel/implant brand | Confirm actual implant system used |
+| Press links | Provide actual URLs for Assam Tribune / TOI / Northeast Now articles |
+| MCI registration | Replace `TODO[CLIENT]` in `constants.ts` DOCTORS |
+
+---
+
 ## PHASE 1 — Template Cleanup
 - Renamed doctor images: `dr-jackson.webp` → `dr-dhritiman-borah.webp`, `dr-rund.webp` → `dr-asif-ahmed.webp`
 - Updated `constants.ts` image paths to match new filenames

@@ -1,2 +1,2 @@
 export const SITE_URL =
-  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://dentalpointguwahati.com").replace(/\/$/, "");
+  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://dental-point-ataur.vercel.app").replace(/\/$/, "");

@@ -218,12 +218,12 @@ export const FAQS = [
 export const TRUST_BADGES = [
   { label: "Indian Dental Association", abbr: "IDA" },
   { label: "MDS Qualified Specialists", abbr: "MDS" },
-  { label: "NABH Standards", abbr: "NABH" },
-  { label: "Nobel Biocare Implants", abbr: "NOBEL" },
-  { label: "Invisalign Certified", abbr: "ALIGNERS" },
+  { label: "Premium Implant Systems", abbr: "IMPLANTS" },
+  { label: "Clear Aligner Specialist", abbr: "ALIGNERS" },
   { label: "3D CBCT Imaging", abbr: "3D CBCT" },
   { label: "Laser Dentistry", abbr: "LASER" },
-  { label: "CEREC Same-Day Crowns", abbr: "CEREC" },
+  { label: "Same-Day Crowns", abbr: "CEREC" },
+  { label: "Computer-Guided Surgery", abbr: "GUIDED" },
 ];
 
 export const INSTAGRAM_MOCK = [

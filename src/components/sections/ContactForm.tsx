@@ -90,6 +90,7 @@ const inputStyle = {
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const {
     register,
@@ -104,10 +105,20 @@ export default function ContactForm() {
 
   const onSubmit = async (data: AppointmentFormData) => {
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    console.log("Form submitted:", data);
-    setLoading(false);
-    setSubmitted(true);
+    setSubmitError(false);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("failed");
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -432,6 +443,16 @@ export default function ContactForm() {
                       </>
                     )}
                   </motion.button>
+
+                  {submitError && (
+                    <p className="text-xs text-center mt-2" style={{ color: "var(--color-ink-soft)" }}>
+                      Something went wrong. Please{" "}
+                      <a href="tel:+919864097338" className="font-semibold underline" style={{ color: "var(--color-primary)" }}>
+                        call us directly
+                      </a>{" "}
+                      or WhatsApp on +91&nbsp;98640&nbsp;97338.
+                    </p>
+                  )}
                 </motion.form>
               )}
             </AnimatePresence>

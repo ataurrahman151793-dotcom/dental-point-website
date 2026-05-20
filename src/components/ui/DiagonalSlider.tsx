@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, startTransition } from "react";
 import Image from "next/image";
 
 const SKEW     = 0.12;
@@ -89,8 +89,10 @@ export default function DiagonalSlider({
 
   /* ── Detect environment ── */
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    setNoAnim(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    startTransition(() => {
+      setIsMobile(window.innerWidth < 768);
+      setNoAnim(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    });
     const t = setTimeout(() => setShowHint(false), 3200);
     return () => clearTimeout(t);
   }, []);

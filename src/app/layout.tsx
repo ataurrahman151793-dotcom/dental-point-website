@@ -14,7 +14,7 @@ const clinicSchema = {
   "@type": "Dentist",
   name: "Dental Point & Implant Centre",
   description:
-    "MDS-qualified dental specialists offering computer-guided implants, same-day crowns, laser dentistry, and Invisalign in Guwahati, Assam.",
+    "MDS-qualified dental specialists offering computer-guided implants, same-day crowns, laser dentistry, and clear aligners in Guwahati, Assam.",
   url: SITE_URL,
   telephone: "+919864097338",
   priceRange: "₹₹",
@@ -65,13 +65,13 @@ export const metadata: Metadata = {
     template: "%s | Dental Point & Implant Centre",
   },
   description:
-    "Guwahati's premier dental clinic — MDS-qualified specialists delivering computer-guided implants, same-day crowns, Invisalign & laser dentistry. 500+ 5-star reviews. 0% EMI available.",
+    "Guwahati's premier dental clinic — MDS-qualified specialists delivering computer-guided implants, same-day crowns, clear aligners & laser dentistry. 500+ Google reviews. 0% EMI available.",
   keywords: [
     "dentist Guwahati",
     "dental implants Guwahati",
     "same-day crowns Guwahati",
     "computer guided implants Assam",
-    "Invisalign Guwahati",
+    "clear aligners Guwahati",
     "laser dentistry Guwahati",
     "cosmetic dentistry Guwahati",
     "best dentist Dispur",
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     title:
       "Dental Point & Implant Centre | Best Dental Implants in Guwahati",
     description:
-      "MDS-qualified specialists delivering computer-guided implants, same-day crowns & laser dentistry in Guwahati. 500+ 5-star Google reviews.",
+      "MDS-qualified specialists delivering computer-guided implants, same-day crowns & laser dentistry in Guwahati. 500+ Google reviews.",
     images: [
       {
         url: "/images/og-image.jpg",
@@ -102,7 +102,7 @@ export const metadata: Metadata = {
     title:
       "Dental Point & Implant Centre | Best Dental Implants in Guwahati",
     description:
-      "MDS-qualified specialists in Guwahati. Computer-guided implants, same-day crowns, Invisalign & laser dentistry.",
+      "MDS-qualified specialists in Guwahati. Computer-guided implants, same-day crowns, clear aligners & laser dentistry.",
     images: ["/images/og-image.jpg"],
   },
   robots: {
@@ -115,6 +115,7 @@ export const metadata: Metadata = {
     "geo.placename": "Guwahati, Assam",
     "geo.position":  "26.139001;91.789896",
     "ICBM":          "26.139001, 91.789896",
+    "theme-color":   "#2F5D52",
   },
 };
 
