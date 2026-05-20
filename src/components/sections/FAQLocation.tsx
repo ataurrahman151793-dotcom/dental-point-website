@@ -115,15 +115,15 @@ export default function FAQLocation() {
       aria-label="FAQ and location"
       style={{ background: "var(--color-bg)" }}
     >
-      <div className="grid lg:grid-cols-2 min-h-[80vh]">
+      <div className="grid lg:grid-cols-2 lg:min-h-[80vh]">
 
         {/* ══ LEFT — FAQ ══════════════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0, x: -24 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col px-8 py-12 md:px-16 md:py-16"
-          style={{ background: "var(--color-surface)" }}
+          className="flex flex-col px-6 py-10 md:px-16 md:py-16"
+          style={{ background: "var(--color-surface)", scrollMarginTop: "5rem" }}
           id="faq"
         >
           {/* Header block */}
@@ -161,8 +161,8 @@ export default function FAQLocation() {
           initial={{ opacity: 0, x: 24 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col px-8 py-12 md:px-16 md:py-16"
-          style={{ background: "var(--color-bg)" }}
+          className="flex flex-col px-6 py-10 md:px-16 md:py-16"
+          style={{ background: "var(--color-bg)", scrollMarginTop: "5rem" }}
           id="contact"
         >
           <Eyebrow>find us</Eyebrow>
@@ -214,7 +214,7 @@ export default function FAQLocation() {
             <ClinicMap />
           </div>
 
-          <Button href="#contact-form" variant="primary" className="mt-8">
+          <Button href="#contact-form" variant="primary" className="mt-8 mb-20 lg:mb-0">
             request an appointment
           </Button>
         </motion.div>

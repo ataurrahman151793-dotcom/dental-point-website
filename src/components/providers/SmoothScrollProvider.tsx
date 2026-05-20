@@ -14,6 +14,9 @@ export default function SmoothScrollProvider({
 
   useEffect(() => {
     if (reducedMotion) return;
+    /* Skip on mobile — native iOS/Android momentum scroll is already smooth.
+       Lenis on touch adds JS overhead that causes jank on lower-end devices. */
+    if (window.innerWidth < 1024) return;
 
     const init = async () => {
       const Lenis = (await import("lenis")).default;
@@ -23,13 +26,13 @@ export default function SmoothScrollProvider({
       gsap.registerPlugin(ScrollTrigger);
 
       const lenis = new Lenis({
-        duration: 1.2,
+        duration: 1.1,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
         wheelMultiplier: 1,
-        touchMultiplier: 2,
+        touchMultiplier: 1,
       });
 
       lenisRef.current = lenis;

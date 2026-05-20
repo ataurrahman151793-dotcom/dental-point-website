@@ -304,3 +304,25 @@ img {
 body {
   text-rendering: optimizeLegibility;
 }
+
+/* ─────────────────────────────────────────────────────────
+   STICKY HEADER SCROLL OFFSET
+   Clears the 64 px scrolled navbar + 12 px top-3 offset
+   ───────────────────────────────────────────────────────── */
+section[id],
+[id="faq"],
+[id="contact"],
+[id="technology"],
+[id="faq-location"] {
+  scroll-margin-top: 5rem;
+}
+
+/* ─────────────────────────────────────────────────────────
+   MOBILE — prevent horizontal overflow & give breathing
+   room above the fixed CTA bar / WhatsApp button
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  body {
+    overflow-x: hidden;
+  }
+}

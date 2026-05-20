@@ -33,7 +33,7 @@ export default function NortheastReach() {
     <section
       ref={ref}
       aria-labelledby="ne-reach-heading"
-      className="relative py-12 md:py-16"
+      className="relative py-12 md:py-16 overflow-x-hidden"
       style={{ background: "var(--color-surface)" }}
     >
       {/* Background glow */}
@@ -170,29 +170,31 @@ export default function NortheastReach() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-3 gap-4 max-w-xl mx-auto w-full"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto w-full"
         >
           {STATS.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col gap-1 p-4 rounded-2xl text-center"
+              className="flex sm:flex-col flex-row items-center sm:items-center gap-3 sm:gap-1 p-4 rounded-2xl sm:text-center text-left"
               style={{
                 background: "var(--color-bg)",
                 border: "1.5px solid rgba(47,93,82,0.2)",
               }}
             >
               <p
-                className="font-display font-bold leading-none"
+                className="font-display font-bold leading-none flex-shrink-0"
                 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", color: "var(--color-primary)" }}
               >
                 {stat.value}
               </p>
-              <p className="font-body font-semibold text-xs uppercase tracking-wide" style={{ color: "var(--color-ink)" }}>
-                {stat.label}
-              </p>
-              <p className="font-body text-xs leading-snug" style={{ color: "var(--color-ink-soft)" }}>
-                {stat.sub}
-              </p>
+              <div className="flex flex-col gap-0.5">
+                <p className="font-body font-semibold text-xs uppercase tracking-wide" style={{ color: "var(--color-ink)", overflowWrap: "break-word" }}>
+                  {stat.label}
+                </p>
+                <p className="font-body text-xs leading-snug" style={{ color: "var(--color-ink-soft)", overflowWrap: "break-word" }}>
+                  {stat.sub}
+                </p>
+              </div>
             </div>
           ))}
         </motion.div>

@@ -106,7 +106,7 @@ export default function TechnologyCards() {
         >
           {/* Left — scrolling pill list */}
           <div
-            className="w-full lg:w-[40%] relative z-30 flex flex-col items-start justify-center overflow-hidden px-10 md:px-14"
+            className="w-full lg:w-[40%] relative z-30 flex flex-col items-start justify-center overflow-hidden px-6 md:px-10 lg:px-14"
             style={{
               minHeight: "280px",
               background: "var(--color-primary)",
@@ -129,7 +129,7 @@ export default function TechnologyCards() {
               }}
             />
 
-            <div className="relative w-full h-full flex items-center justify-start z-20 py-16">
+            <div className="relative w-full h-full flex items-center justify-center z-20 py-16">
               {TECHNOLOGY.map((tech, index) => {
                 const isActive = index === currentIndex;
                 const distance = index - currentIndex;
@@ -183,10 +183,10 @@ export default function TechnologyCards() {
           <div
             className="flex-1 relative flex items-center justify-center overflow-hidden border-t lg:border-t-0 lg:border-l"
             style={{
-              minHeight: "420px",
+              minHeight: "380px",
               background: "var(--color-surface)",
               borderColor: "var(--color-line)",
-              padding: "3rem 1.5rem",
+              padding: "2rem 1rem",
             }}
           >
             <div className="relative w-full max-w-[360px] flex items-center justify-center" style={{ aspectRatio: "4/5" }}>
@@ -240,14 +240,14 @@ export default function TechnologyCards() {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
-                          className="absolute inset-x-0 bottom-0 p-7 pt-28 flex flex-col justify-end pointer-events-none"
+                          className="absolute inset-x-0 bottom-0 p-4 pt-16 md:p-7 md:pt-28 flex flex-col justify-end pointer-events-none"
                           style={{
                             background:
-                              "linear-gradient(to top, rgba(10,20,18,0.93) 0%, rgba(10,20,18,0.55) 55%, transparent 100%)",
+                              "linear-gradient(to top, rgba(10,20,18,0.97) 0%, rgba(10,20,18,0.75) 45%, rgba(10,20,18,0.2) 75%, transparent 100%)",
                           }}
                         >
                           <div
-                            className="px-3 py-1 rounded-full text-[10px] font-body font-semibold uppercase tracking-[0.2em] w-fit mb-3"
+                            className="px-3 py-1 rounded-full text-[10px] font-body font-semibold uppercase tracking-[0.2em] w-fit mb-2 md:mb-3"
                             style={{
                               background: "rgba(200,224,214,0.15)",
                               backdropFilter: "blur(8px)",
@@ -257,7 +257,7 @@ export default function TechnologyCards() {
                           >
                             {`0${index + 1}`} &bull; {tech.title}
                           </div>
-                          <p className="text-white font-display text-lg leading-snug">
+                          <p className="text-white font-display text-sm md:text-base leading-snug">
                             {tech.body}
                           </p>
                         </motion.div>

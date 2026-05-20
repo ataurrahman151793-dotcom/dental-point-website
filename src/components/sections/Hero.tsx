@@ -141,9 +141,18 @@ export default function Hero() {
           />
         </div>
 
+        {/* ── Mobile-only permanent dark overlay (z-15 — between video z-10 and text z-20) ── */}
+        <div
+          className="absolute inset-0 z-[15] md:hidden pointer-events-none"
+          style={{
+            background: "linear-gradient(180deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.15) 100%)",
+          }}
+          aria-hidden="true"
+        />
+
         {/* ── Text + CTAs ── */}
         <motion.div
-          className="absolute inset-x-0 top-0 z-20 flex flex-col items-center text-center gap-5 pt-24 md:pt-28 px-6"
+          className="absolute inset-x-0 top-0 z-20 flex flex-col items-center text-center gap-5 pt-24 md:pt-28 px-5 md:px-6"
           style={{
             opacity: prefersReducedMotion ? 1 : textOpacity,
             y:       prefersReducedMotion ? 0 : textY,
@@ -154,7 +163,7 @@ export default function Hero() {
           </span>
           <h1
             className="font-display font-bold text-white lowercase leading-tight"
-            style={{ fontSize: "clamp(2.8rem, 8vw, 5.5rem)" }}
+            style={{ fontSize: "clamp(2.2rem, 8vw, 5.5rem)" }}
           >
             elevate<br />your smile
           </h1>
