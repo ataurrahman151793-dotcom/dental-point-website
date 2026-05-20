@@ -300,7 +300,7 @@ export default function Doctors() {
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-[#091410]/25" style={{ zIndex: 1 }} aria-hidden="true" />
-      <DottedSurface className="z-[2]" />
+      {!isMobile && <DottedSurface className="z-[2]" />}
 
       <div className="relative z-10">
 
