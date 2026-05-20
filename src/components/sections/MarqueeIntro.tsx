@@ -8,7 +8,7 @@ const items = [
   { icon: Sparkles, text: "computer-guided implants" },
   { icon: Bot, text: "3D CBCT imaging" },
   { icon: Zap, text: "painless laser dentistry" },
-  { icon: Star, text: "300+ 5-star reviews" },
+  { icon: Star, text: "500+ 5-star reviews" },
   { icon: Sparkles, text: "smile makeovers" },
   { icon: Bot, text: "0% emi available" },
   { icon: Zap, text: "mds specialists" },

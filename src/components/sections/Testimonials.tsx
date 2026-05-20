@@ -10,22 +10,32 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 /* ── Animated review counter ── */
 function ReviewCounter({ target }: { target: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
+  const inView = useInView(ref, { once: true, amount: 0 });
   const [count, setCount] = useState(0);
   const reducedMotion = useReducedMotion();
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!inView) return;
-    const duration = reducedMotion ? 0 : 1800;
+    if (!inView || hasAnimated.current) return;
+    hasAnimated.current = true;
+
+    if (reducedMotion) {
+      setCount(target);
+      return;
+    }
+
+    const duration = 1800;
     const start = Date.now();
+    let rafId: number;
     const step = () => {
       const elapsed  = Date.now() - start;
-      const progress = Math.min(elapsed / duration || 1, 1);
+      const progress = Math.min(elapsed / duration, 1);
       const eased    = 1 - Math.pow(1 - progress, 3);
       setCount(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) rafId = requestAnimationFrame(step);
     };
-    requestAnimationFrame(step);
+    rafId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId);
   }, [inView, target, reducedMotion]);
 
   return <span ref={ref}>{count}</span>;

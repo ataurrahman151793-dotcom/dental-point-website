@@ -7,6 +7,7 @@ import "@fontsource-variable/fraunces";
 import "@fontsource-variable/inter";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
+import { SITE_URL } from "@/lib/siteConfig";
 
 const clinicSchema = {
   "@context": "https://schema.org",
@@ -14,7 +15,7 @@ const clinicSchema = {
   name: "Dental Point & Implant Centre",
   description:
     "MDS-qualified dental specialists offering computer-guided implants, same-day crowns, laser dentistry, and Invisalign in Guwahati, Assam.",
-  url: "https://dentalpointguwahati.com",
+  url: SITE_URL,
   telephone: "+919864097338",
   priceRange: "₹₹",
   address: {
@@ -49,7 +50,7 @@ const clinicSchema = {
     "@type": "AggregateRating",
     ratingValue: "4.9",
     bestRating: "5",
-    ratingCount: "300",
+    ratingCount: "500",
   },
   sameAs: [
     "https://www.facebook.com/dentalpointguwahati",
@@ -77,11 +78,11 @@ export const metadata: Metadata = {
     "Dental Point & Implant Centre",
     "MDS specialist Guwahati",
   ],
-  metadataBase: new URL("https://dentalpointguwahati.com"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://dentalpointguwahati.com",
+    url: SITE_URL,
     siteName: "Dental Point & Implant Centre",
     title:
       "Dental Point & Implant Centre | Best Dental Implants in Guwahati",

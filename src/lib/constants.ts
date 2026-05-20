@@ -7,10 +7,11 @@ export const CLINIC = {
   address: "N.C. Hazarika Complex, Beltola Basistha Road, near Last Gate, Dispur, Guwahati, Assam 781006",
   addressUrl: "https://maps.google.com/?q=26.139001,91.789896",
   hours: "Mon–Sat · 9am – 9pm",
-  reviewCount: 300,
+  reviewCount: 500,
   rating: 4.9,
   instagram: "https://instagram.com/dentalpointassam",
   facebook: "https://facebook.com/dentalpointguwahati",
+  googleReviews: "https://www.google.com/search?q=Dental+Point+%26+Implant+Centre+Dispur+Guwahati",
 };
 
 export const NAV_LINKS = [
@@ -98,12 +99,12 @@ export const TECHNOLOGY = [
   },
   {
     title: "computer-guided implants",
-    body: "Digital surgical guides translate your 3D scan into a perfectly planned implant placement — faster surgery, minimal trauma, quicker healing.",
+    body: "Surgical guides crafted from your 3D scan direct each implant to the exact position, depth, and angle planned digitally — before we touch a tool. The result is minimal soft-tissue trauma, zero guesswork, and recovery times often half that of conventional surgery.",
     image: "/images/tech/yomi.webp",
   },
   {
     title: "laser dentistry",
-    body: "Our dental laser treats cavities, gum disease, and more with minimal discomfort — often without injections. Less pain, faster recovery, better results.",
+    body: "Our dental laser performs fillings, gum reshaping, and cavity removal with no drill and no needle in most cases. Laser energy sterilises as it works — reducing infection risk, cutting bleeding to near zero, and accelerating tissue recovery for results that heal faster and feel better.",
     image: "/images/tech/solea.webp",
   },
 ];

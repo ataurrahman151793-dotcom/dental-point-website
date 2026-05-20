@@ -140,7 +140,7 @@ const footerCols = [
       { label: "about us",         href: "#about" },
       { label: "our doctors",      href: "#about" },
       { label: "3d cbct imaging",  href: "#technology" },
-      { label: "patient reviews",  href: "#" },
+      { label: "patient reviews",  href: CLINIC.googleReviews },
       { label: "emi plans",        href: "#savings" },
       { label: "new patients",     href: "#contact-form" },
     ],
@@ -151,16 +151,14 @@ const footerCols = [
       { label: "N.C. Hazarika Complex, Dispur", href: CLINIC.addressUrl },
       { label: "Guwahati, Assam 781006",        href: CLINIC.addressUrl },
       { label: CLINIC.phone,                    href: CLINIC.phoneHref  },
-      { label: CLINIC.hours,                    href: "#"               },
+      { label: CLINIC.hours,                    href: "#faq-location"   },
     ],
   },
   {
     heading: "review us",
     links: [
-      { label: "google reviews", href: "#" },
+      { label: "google reviews", href: CLINIC.googleReviews },
       { label: "facebook",       href: CLINIC.facebook },
-      { label: "healthgrades",   href: "#" },
-      { label: "zocdoc",         href: "#" },
     ],
   },
 ];
@@ -322,16 +320,20 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex items-center gap-5">
-            {["privacy policy", "terms of service", "accessibility"].map((item) => (
+            {[
+              { label: "privacy policy",   href: "/privacy" },
+              { label: "terms of service", href: "/terms" },
+              { label: "accessibility",    href: "/accessibility" },
+            ].map(({ label, href }) => (
               <a
-                key={item}
-                href="#"
+                key={label}
+                href={href}
                 className="text-xs font-body transition-colors duration-150"
                 style={{ color: "rgba(246,244,239,0.38)" }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(246,244,239,0.75)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(246,244,239,0.38)")}
               >
-                {item}
+                {label}
               </a>
             ))}
           </div>
