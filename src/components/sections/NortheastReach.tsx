@@ -33,7 +33,7 @@ export default function NortheastReach() {
     <section
       ref={ref}
       aria-labelledby="ne-reach-heading"
-      className="relative py-20 md:py-28"
+      className="relative py-12 md:py-16"
       style={{ background: "var(--color-surface)" }}
     >
       {/* Background glow */}
@@ -45,7 +45,7 @@ export default function NortheastReach() {
         }}
       />
 
-      <div className="container-site relative z-10 flex flex-col gap-14">
+      <div className="container-site relative z-10 flex flex-col gap-8 md:gap-10">
 
         {/* ── Section heading — centered, full width ── */}
         <motion.div
@@ -76,7 +76,7 @@ export default function NortheastReach() {
         </motion.div>
 
         {/* ── Two equal columns ── */}
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start">
 
           {/* Left — globe + location card */}
           <motion.div
