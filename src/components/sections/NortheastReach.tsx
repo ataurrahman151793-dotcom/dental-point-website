@@ -20,9 +20,9 @@ const LOCATION = {
 };
 
 const STATS = [
-  { value: "12+",  label: "years in Dispur"  },
-  { value: "500+", label: "implants placed"  },
-  { value: "50+",  label: "NRIs treated"     },
+  { value: "12+",  label: "years in Dispur",  sub: "Serving Guwahati since 2013"     },
+  { value: "500+", label: "implants placed",  sub: "Computer-guided precision"        },
+  { value: "50+",  label: "NRIs treated",     sub: "Patients from across the globe"  },
 ];
 
 export default function NortheastReach() {
@@ -41,20 +41,51 @@ export default function NortheastReach() {
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
-          background: "radial-gradient(ellipse 70% 60% at 80% 50%, rgba(200,224,214,0.10) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,224,214,0.13) 0%, transparent 70%)",
         }}
       />
 
-      <div className="container-site relative z-10">
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
+      <div className="container-site relative z-10 flex flex-col gap-14">
 
-          {/* ── Left: interactive globe + location card ── */}
+        {/* ── Section heading — centered, full width ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center text-center gap-4"
+        >
+          <Eyebrow>northeast india trusts us</Eyebrow>
+          <h2
+            id="ne-reach-heading"
+            className="font-display font-semibold lowercase leading-tight"
+            style={{
+              fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
+              letterSpacing: "-0.03em",
+              color: "var(--color-ink)",
+            }}
+          >
+            500+ patients from<br />
+            <em className="not-italic" style={{ color: "var(--color-primary)" }}>
+              across the region
+            </em>
+          </h2>
+          <p className="text-base leading-relaxed max-w-lg" style={{ color: "var(--color-ink-soft)" }}>
+            From Assam to Arunachal, Meghalaya to Nagaland — families travel to Guwahati specifically for
+            Dental Point&apos;s computer-guided implant surgery and smile makeovers.
+          </p>
+        </motion.div>
+
+        {/* ── Two equal columns ── */}
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+          {/* Left — globe + location card */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center gap-6"
+            className="flex flex-col items-center gap-5"
           >
+            {/* Globe — square, max-w-sm */}
             <div className="relative w-full max-w-sm mx-auto">
               <div
                 className="absolute inset-0 rounded-full pointer-events-none"
@@ -106,72 +137,66 @@ export default function NortheastReach() {
             </a>
           </motion.div>
 
-          {/* ── Right: heading + orbital services ── */}
-          <div className="flex flex-col gap-6">
-
-            {/* Header */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col gap-3"
-            >
-              <Eyebrow>what we offer</Eyebrow>
-              <h2
-                id="ne-reach-heading"
-                className="font-display font-semibold lowercase leading-tight"
-                style={{
-                  fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
-                  letterSpacing: "-0.03em",
-                  color: "var(--color-ink)",
-                }}
-              >
-                treatments that bring<br />
-                <em className="not-italic" style={{ color: "var(--color-primary)" }}>
-                  patients from across india
-                </em>
-              </h2>
-            </motion.div>
-
-            {/* Orbital services */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          {/* Right — orbital services, same visual size as globe */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center gap-3"
+          >
+            {/* Orbital square — same max-w-sm as globe */}
+            <div
+              className="relative w-full max-w-sm mx-auto"
+              style={{ aspectRatio: "1 / 1" }}
             >
               <OrbitalServices />
-            </motion.div>
+            </div>
 
-            {/* Mini stats row */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.35, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center justify-center gap-8 pt-1"
-            >
-              {STATS.map((stat, i) => (
-                <div key={stat.label} className="flex flex-col items-center gap-0.5">
-                  <span
-                    className="font-display font-bold"
-                    style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)", color: "var(--color-primary)" }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span className="font-body text-xs uppercase tracking-wide" style={{ color: "var(--color-ink-soft)" }}>
-                    {stat.label}
-                  </span>
-                  {i < STATS.length - 1 && (
-                    <div
-                      className="hidden"
-                      aria-hidden="true"
-                    />
-                  )}
-                </div>
-              ))}
-            </motion.div>
-          </div>
+            <p className="font-body text-xs" style={{ color: "var(--color-ink-soft)", opacity: 0.45 }}>
+              Tap any node to explore · click again to close
+            </p>
+
+            {/* Languages */}
+            <p className="font-body text-sm text-center" style={{ color: "var(--color-ink-soft)" }}>
+              Languages spoken:{" "}
+              <span style={{ color: "var(--color-ink)" }}>Assamese · Bengali · Hindi · English · Bodo</span>
+            </p>
+          </motion.div>
 
         </div>
+
+        {/* ── Stats row — full width, centered ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-3 gap-4 max-w-xl mx-auto w-full"
+        >
+          {STATS.map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col gap-1 p-4 rounded-2xl text-center"
+              style={{
+                background: "var(--color-bg)",
+                border: "1.5px solid rgba(47,93,82,0.2)",
+              }}
+            >
+              <p
+                className="font-display font-bold leading-none"
+                style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", color: "var(--color-primary)" }}
+              >
+                {stat.value}
+              </p>
+              <p className="font-body font-semibold text-xs uppercase tracking-wide" style={{ color: "var(--color-ink)" }}>
+                {stat.label}
+              </p>
+              <p className="font-body text-xs leading-snug" style={{ color: "var(--color-ink-soft)" }}>
+                {stat.sub}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+
       </div>
     </section>
   );

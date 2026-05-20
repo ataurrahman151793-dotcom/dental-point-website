@@ -59,7 +59,7 @@ const SERVICES: ServiceNode[] = [
   },
 ];
 
-const RADIUS = 155;
+const RADIUS = 128;
 
 export default function OrbitalServices() {
   const [expandedId,  setExpandedId]  = useState<number | null>(null);
@@ -119,8 +119,7 @@ export default function OrbitalServices() {
 
   return (
     <div
-      className="relative w-full flex items-center justify-center select-none"
-      style={{ minHeight: 460 }}
+      className="relative w-full h-full flex items-center justify-center select-none"
       onClick={handleBg}
     >
       {/* Orbit ring */}
@@ -148,13 +147,6 @@ export default function OrbitalServices() {
         <div className="rounded-full" style={{ width: 22, height: 22, background: "rgba(246,244,239,0.92)" }} />
       </div>
 
-      {/* Hint */}
-      <p
-        className="absolute font-body text-xs"
-        style={{ bottom: 0, color: "var(--color-ink-soft)", opacity: 0.45 }}
-      >
-        tap any node to explore
-      </p>
 
       {/* Nodes */}
       {SERVICES.map((svc, i) => {
