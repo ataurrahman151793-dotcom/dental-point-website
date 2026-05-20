@@ -19,7 +19,7 @@ const ComfortGallery = dynamic(() => import("@/components/sections/ComfortGaller
 const Testimonials   = dynamic(() => import("@/components/sections/Testimonials"));
 const NortheastReach = dynamic(() => import("@/components/sections/NortheastReach"));
 const SmileScore     = dynamic(() => import("@/components/sections/SmileScore"));
-const ScheduleCTA    = dynamic(() => import("@/components/sections/ScheduleCTA"));
+const BeforeAfterSection = dynamic(() => import("@/components/sections/BeforeAfterSection"));
 const FAQLocation    = dynamic(() => import("@/components/sections/FAQLocation"));
 const TrustBadges    = dynamic(() => import("@/components/sections/TrustBadges"));
 const FeaturedIn     = dynamic(() => import("@/components/sections/FeaturedIn"));
@@ -46,10 +46,10 @@ export default function Home() {
         <ProblemsWeTreat />
         <Pricing />
         <SmileScore />
+        <BeforeAfterSection />
         <ComfortGallery />
         <Testimonials />
         <NortheastReach />
-        <ScheduleCTA />
         <FAQLocation />
         <TrustBadges />
         <FeaturedIn />
