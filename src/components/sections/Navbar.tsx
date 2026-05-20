@@ -199,11 +199,23 @@ export default function Navbar() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const megaTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const rafTickRef     = useRef<number | null>(null);
 
+  /* RAF-throttled scroll — fires at most once per animation frame */
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 10);
+    const handler = () => {
+      if (rafTickRef.current !== null) return;
+      rafTickRef.current = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 10);
+        rafTickRef.current = null;
+      });
+    };
+    handler(); // sync on mount
     window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    return () => {
+      window.removeEventListener("scroll", handler);
+      if (rafTickRef.current !== null) cancelAnimationFrame(rafTickRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -231,30 +243,38 @@ export default function Navbar() {
     <>
       <header
         className={cn(
-          "fixed left-0 right-0 z-50 flex justify-center",
-          "transition-all duration-300 ease-out pointer-events-none",
-          scrolled ? "top-3" : "top-0"
+          /* Always top-0 on mobile — no island shift (avoids render glitch) */
+          /* Desktop: float to top-3 when scrolled                           */
+          "fixed left-0 right-0 top-0 z-50 flex justify-center pointer-events-none",
+          "lg:transition-[top] lg:duration-300 lg:ease-out",
+          scrolled && "lg:top-3"
         )}
+        style={{ willChange: "top" }}
       >
         <div
           className={cn(
-            "w-full pointer-events-auto transition-all duration-300 ease-out",
+            "w-full pointer-events-auto",
+            /* Transition only bg + shadow — not all props */
+            "transition-[background-color,box-shadow] duration-200 ease-out",
             scrolled
-              ? [
-                  "lg:max-w-5xl lg:mx-6",
-                  "lg:rounded-2xl lg:border",
-                  "bg-bg/95 backdrop-blur-xl",
-                  "border-[rgba(26,36,33,0.1)]",
-                  "shadow-[0_8px_32px_rgba(26,36,33,0.1)]",
-                ].join(" ")
+              ? cn(
+                  "lg:max-w-5xl lg:mx-6 lg:rounded-2xl lg:border",
+                  /* Mobile: solid bg, no backdrop-blur (too heavy on Android) */
+                  "bg-bg shadow-[0_1px_0_rgba(26,36,33,0.08)]",
+                  /* Desktop: semi-transparent + blur island */
+                  "lg:bg-bg/95 lg:backdrop-blur-xl",
+                  "lg:border-[rgba(26,36,33,0.1)] lg:shadow-[0_8px_32px_rgba(26,36,33,0.1)]",
+                )
               : "bg-transparent"
           )}
         >
           <div className="container-site">
             <div
               className={cn(
-                "flex items-center justify-between transition-all duration-300",
-                scrolled ? "h-16" : "h-[88px]"
+                "flex items-center justify-between",
+                "transition-[height] duration-200",
+                /* Smaller height on mobile to reduce layout thrash */
+                scrolled ? "h-14 lg:h-16" : "h-[72px] lg:h-[88px]"
               )}
             >
               <Logo scrolled={scrolled} />

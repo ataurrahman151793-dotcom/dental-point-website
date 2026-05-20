@@ -93,9 +93,9 @@ export default function TechnologyCards() {
           </p>
         </motion.div>
 
-        {/* Carousel */}
+        {/* Carousel — full-bleed on mobile (breaks out of container padding) */}
         <motion.div
-          className="relative overflow-hidden rounded-[2.5rem] lg:rounded-[3.5rem] flex flex-col lg:flex-row border"
+          className="relative overflow-hidden -mx-6 md:-mx-8 lg:mx-0 rounded-none md:rounded-[2.5rem] lg:rounded-[3.5rem] flex flex-col lg:flex-row border-t border-b md:border"
           style={{
             minHeight: "500px",
             borderColor: "var(--color-line)",
